@@ -12,7 +12,7 @@ import { type User, type Event } from '../types';
 interface EventRegistrationScreenProps {
   user: User;
   event: Event;
-  onPaymentSuccess: (paymentData: { method: string; amount: number; event: string; timestamp: string; data: any; }) => void;
+  onPaymentSuccess: (paymentData: { method: string; amount: number; event: string; timestamp: string; data: Record<string, unknown>; }) => void;
   onBack: () => void;
   isLoading: boolean;
 }

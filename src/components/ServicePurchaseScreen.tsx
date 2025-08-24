@@ -12,7 +12,7 @@ import { type User, type ServicePurchase } from '../types';
 interface ServicePurchaseScreenProps {
   user: User;
   service: ServicePurchase;
-  onPaymentSuccess: (paymentData: { method: string; amount: number; service: string; timestamp: string; data: any; }) => void;
+  onPaymentSuccess: (paymentData: { method: string; amount: number; service: string; timestamp: string; data: Record<string, unknown>; }) => void;
   onBack: () => void;
   isLoading: boolean;
 }
