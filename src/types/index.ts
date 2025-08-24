@@ -230,6 +230,25 @@ export type CheckIn = {
   location?: string;
 };
 
+export type TrainerApplication = {
+  sport: string; // sport id
+  membershipTier: 'basic' | 'standard' | 'premium';
+  experience: number;
+  certifications: string[];
+  availability: Array<{
+    day: string;
+    timeSlots: Array<{
+      startTime: string;
+      endTime: string;
+      available: boolean;
+    }>;
+  }>;
+  locations: string[];
+  bio: string;
+  specialties: string[];
+  gender: 'male' | 'female' | 'both';
+};
+
 export type ServicePurchase = {
   serviceId: string;
   serviceName: string;

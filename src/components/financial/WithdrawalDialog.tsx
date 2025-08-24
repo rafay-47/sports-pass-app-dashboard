@@ -40,7 +40,7 @@ export default function WithdrawalDialog({
     
     onWithdrawal({
       amount: parseFloat(form.amount),
-      method: form.method as any,
+      method: form.method as 'bank' | 'easypaisa' | 'jazzcash' | 'sadapay',
       accountDetails: form.accountDetails
     });
     

@@ -27,7 +27,7 @@ import { Avatar, AvatarFallback } from '../components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
 
 // Import types and utilities
-import { type ClubOwner, type Club, type FinancialData, type ClubEvent, type NotificationItem } from '../types';
+import { type ClubOwner, type Club, type FinancialData, type ClubEvent, type NotificationItem, type CheckInAnalytics, type ServiceCommission } from '../types';
 import { generateMockAnalytics } from '../utils/helpers';
 
 function AppContent() {
@@ -49,30 +49,38 @@ function AppContent() {
   });
   const [events, setEvents] = useState<ClubEvent[]>([]);
 
-  // Helper to coerce runtime data into the expected FinancialData unions
-  const sanitizeFinancialData = (data: any): FinancialData => {
+  // Helper to coerce runtime data (unknown) into the expected FinancialData unions without using `any`
+  const sanitizeFinancialData = (data: unknown): FinancialData => {
+    const raw = (typeof data === 'object' && data !== null) ? (data as Partial<FinancialData>) : {};
+
     return {
-      totalRevenue: data.totalRevenue ?? 0,
-      monthlyRevenue: data.monthlyRevenue ?? 0,
-      checkInRevenue: data.checkInRevenue ?? 0,
-      serviceCommissions: data.serviceCommissions ?? 0,
-      pendingWithdrawals: data.pendingWithdrawals ?? 0,
-      availableBalance: data.availableBalance ?? 0,
-      analytics: Array.isArray(data.analytics) ? data.analytics.map((a: any) => ({
-        date: a.date,
-        checkIns: a.checkIns ?? 0,
-        revenue: a.revenue ?? 0,
-        membershipType: a.membershipType as "basic" | "standard" | "premium"
-      })) : [],
-      commissions: Array.isArray(data.commissions) ? data.commissions.map((c: any) => ({
-        id: c.id,
-        serviceName: c.serviceName,
-        memberName: c.memberName,
-        amount: c.amount ?? 0,
-        commission: c.commission ?? 0,
-        date: c.date,
-        status: c.status as "completed" | "pending" | "cancelled"
-      })) : []
+      totalRevenue: raw.totalRevenue ?? 0,
+      monthlyRevenue: raw.monthlyRevenue ?? 0,
+      checkInRevenue: raw.checkInRevenue ?? 0,
+      serviceCommissions: raw.serviceCommissions ?? 0,
+      pendingWithdrawals: raw.pendingWithdrawals ?? 0,
+      availableBalance: raw.availableBalance ?? 0,
+      analytics: Array.isArray(raw.analytics) ? raw.analytics.map((a: Partial<CheckInAnalytics>) => {
+        const membershipType: CheckInAnalytics['membershipType'] = (a.membershipType === 'basic' || a.membershipType === 'standard' || a.membershipType === 'premium') ? a.membershipType as CheckInAnalytics['membershipType'] : 'basic';
+        return {
+          date: a.date ?? '',
+          checkIns: typeof a.checkIns === 'number' ? a.checkIns : 0,
+          revenue: typeof a.revenue === 'number' ? a.revenue : 0,
+          membershipType
+        } as CheckInAnalytics;
+      }) : [],
+      commissions: Array.isArray(raw.commissions) ? raw.commissions.map((c: Partial<ServiceCommission>) => {
+        const status: ServiceCommission['status'] = (c.status === 'completed' || c.status === 'pending' || c.status === 'cancelled') ? c.status as ServiceCommission['status'] : 'pending';
+        return {
+          id: c.id ?? '',
+          serviceName: c.serviceName ?? '',
+          memberName: c.memberName ?? '',
+          amount: typeof c.amount === 'number' ? c.amount : 0,
+          commission: typeof c.commission === 'number' ? c.commission : 0,
+          date: c.date ?? '',
+          status
+        } as ServiceCommission;
+      }) : []
     } as FinancialData;
   };
 

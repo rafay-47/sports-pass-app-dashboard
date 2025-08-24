@@ -12,7 +12,7 @@ interface PaymentScreenProps {
   user: User;
   pendingPurchase: { sportId: string; tier: 'basic' | 'standard' | 'premium' };
   sport: Sport;
-  onPaymentSuccess: (paymentData: any) => void;
+  onPaymentSuccess: (paymentData: { method: string; amount: number; sport: string; tier: string; data: any; }) => void;
   onBack: () => void;
   isLoading: boolean;
 }

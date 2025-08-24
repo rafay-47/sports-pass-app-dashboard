@@ -420,7 +420,7 @@ export default function EventManagementScreen({ club, events, onEventSave, onEve
                 <Label htmlFor="type">Event Type *</Label>
                 <Select 
                   value={eventForm.type || 'tournament'} 
-                  onValueChange={(value: any) => setEventForm(prev => ({ ...prev, type: value }))}
+                  onValueChange={(value: string) => setEventForm(prev => ({ ...prev, type: value as ClubEvent['type'] }))}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -519,7 +519,7 @@ export default function EventManagementScreen({ club, events, onEventSave, onEve
                 <Label htmlFor="difficulty">Difficulty Level *</Label>
                 <Select 
                   value={eventForm.difficulty || 'beginner'} 
-                  onValueChange={(value: any) => setEventForm(prev => ({ ...prev, difficulty: value }))}
+                  onValueChange={(value: string) => setEventForm(prev => ({ ...prev, difficulty: value as ClubEvent['difficulty'] }))}
                 >
                   <SelectTrigger>
                     <SelectValue />

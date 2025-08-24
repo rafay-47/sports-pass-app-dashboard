@@ -70,7 +70,7 @@ function Calendar({
           ),
         };
 
-        return icons as any;
+        return icons as Record<string, React.FC<React.SVGProps<SVGSVGElement>>>;
       })()}
       {...props}
     />

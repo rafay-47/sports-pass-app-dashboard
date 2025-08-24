@@ -23,7 +23,7 @@ export default function RevenueCharts({ financialData }: RevenueChartsProps) {
     }
     acc[month].checkInRevenue += item.revenue;
     return acc;
-  }, {} as any);
+  }, {} as Record<string, { month: string; checkInRevenue: number; serviceRevenue: number }>);
 
   // Add service revenue to monthly data
   financialData.commissions.forEach(commission => {

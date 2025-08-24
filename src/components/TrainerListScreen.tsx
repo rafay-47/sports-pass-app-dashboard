@@ -255,7 +255,7 @@ export default function TrainerListScreen({ sport, userTier, user, memberships, 
       </div>
 
       {/* Tier Tabs */}
-      <Tabs value={selectedTier} onValueChange={(value) => setSelectedTier(value as any)} className="flex-1 flex flex-col">
+      <Tabs value={selectedTier} onValueChange={(value) => setSelectedTier(value as 'basic' | 'standard' | 'premium')} className="flex-1 flex flex-col">
         <div className="px-6 py-4 border-b border-white/10 flex-shrink-0">
           <TabsList className="grid w-full grid-cols-3 bg-white/10 border-white/20">
             {(['basic', 'standard', 'premium'] as const).map((tier) => {

@@ -6,13 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Textarea } from './ui/textarea';
-import { ArrowLeft, CreditCard, Calendar, Clock, Shield, CheckCircle, Star, User } from 'lucide-react';
-import { type User, type ServicePurchase } from '../App';
+import { ArrowLeft, CreditCard, Calendar, Clock, Shield, CheckCircle, Star, User as UserIcon } from 'lucide-react';
+import { type User, type ServicePurchase } from '../types';
 
 interface ServicePurchaseScreenProps {
   user: User;
   service: ServicePurchase;
-  onPaymentSuccess: (paymentData: any) => void;
+  onPaymentSuccess: (paymentData: { method: string; amount: number; service: string; timestamp: string; data: any; }) => void;
   onBack: () => void;
   isLoading: boolean;
 }
@@ -65,7 +65,7 @@ export default function ServicePurchaseScreen({
   const getServiceIcon = () => {
     switch (service.type) {
       case 'booking': return <Calendar className="w-6 h-6" />;
-      case 'session': return <User className="w-6 h-6" />;
+  case 'session': return <UserIcon className="w-6 h-6" />;
       case 'consultation': return <CheckCircle className="w-6 h-6" />;
       case 'rental': return <Clock className="w-6 h-6" />;
       default: return <Star className="w-6 h-6" />;

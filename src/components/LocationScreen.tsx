@@ -278,7 +278,7 @@ export default function LocationScreen({ user, onSignup }: LocationScreenProps) 
 
         {/* View Mode Toggle */}
         <div className="flex items-center justify-between">
-          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as any)} className="w-auto">
+          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as 'list' | 'map')} className="w-auto">
             <TabsList className="grid w-full grid-cols-2 bg-white/10 border-white/20">
               <TabsTrigger value="list" className="data-[state=active]:bg-[#A148FF] data-[state=active]:text-white">
                 <List className="w-4 h-4 mr-2" />
@@ -333,7 +333,7 @@ export default function LocationScreen({ user, onSignup }: LocationScreenProps) 
                     key={price.value}
                     variant={priceFilter === price.value ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => setPriceFilter(price.value as any)}
+                    onClick={() => setPriceFilter(price.value as typeof priceFilter)}
                     className={`text-xs ${priceFilter === price.value ? 
                       'bg-[#FFB948] hover:bg-[#FFB948]/90' : 
                       'border-white/20 hover:bg-white/10'

@@ -213,7 +213,7 @@ export default function MembershipOptions({ sport, onPurchase, isLoading = false
       <div className="mt-6 p-4 bg-white/5 rounded-lg border border-white/10">
         <div className="text-center space-y-2">
           <div className="text-white/70 text-sm font-medium mb-3">
-            ✨ What's included with every plan
+            ✨ What&apos;s included with every plan
           </div>
           <div className="grid grid-cols-2 gap-4 text-xs text-white/60">
             <div className="flex items-center gap-2">

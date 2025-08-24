@@ -51,7 +51,7 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
       setFormData(club);
     } else {
       // Initialize timings for new club
-      const defaultTimings: any = {};
+      const defaultTimings: Record<string, { open: string; close: string; isOpen: boolean }> = {};
       DAYS?.forEach(day => {
         defaultTimings[day.id] = {
           open: '06:00',
@@ -63,11 +63,11 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
     }
   }, [club]);
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleTimingChange = (day: string, field: string, value: any) => {
+  const handleTimingChange = (day: string, field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       timings: {
@@ -305,7 +305,7 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
               Operating Hours
             </CardTitle>
             <CardDescription>
-              Set your club's opening and closing times
+              Set your club&apos;s opening and closing times
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

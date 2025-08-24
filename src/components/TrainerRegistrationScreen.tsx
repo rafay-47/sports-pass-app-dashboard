@@ -9,12 +9,12 @@ import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
 import { ArrowLeft, Upload, Award, Clock, MapPin, Info, CheckCircle, AlertCircle, Crown, Star, Shield, Users, UserCheck } from 'lucide-react';
 import { SPORTS, TRAINER_FEES } from '../constants';
-import type { User, Membership } from '../types';
+import type { User, Membership, TrainerApplication } from '../types';
 
 interface TrainerRegistrationScreenProps {
   user: User;
   memberships: Membership[];
-  onSubmit: (trainerData: any) => void;
+  onSubmit: (trainerData: TrainerApplication) => void;
   onBack: () => void;
   isLoading: boolean;
 }

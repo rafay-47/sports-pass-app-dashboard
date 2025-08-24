@@ -89,7 +89,7 @@ export default function DashboardOverview({ club, financialData, events, notific
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">Welcome back! 👋</h1>
         <p className="text-muted-foreground">
-          Here's what's happening with {club.name} today.
+          Here&apos;s what&apos;s happening with {club.name} today.
         </p>
       </div>
 
@@ -268,7 +268,7 @@ export default function DashboardOverview({ club, financialData, events, notific
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value: any) => [`Rs ${value.toLocaleString()}`, 'Revenue']}
+                    formatter={(value: number) => [`Rs ${value.toLocaleString()}`, 'Revenue']}
                     contentStyle={{ 
                       backgroundColor: 'hsl(var(--card))',
                       border: '1px solid hsl(var(--border))',
@@ -356,14 +356,14 @@ export default function DashboardOverview({ club, financialData, events, notific
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Today's Check-ins</span>
+                <span className="text-sm text-muted-foreground">Today&apos;s Check-ins</span>
                 <span className="font-semibold text-primary">
                   {financialData.analytics[financialData.analytics.length - 1]?.checkIns || 0}
                 </span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">This Month's Revenue</span>
+                <span className="text-sm text-muted-foreground">This Month&apos;s Revenue</span>
                 <span className="font-semibold text-secondary">
                   Rs {financialData.monthlyRevenue.toLocaleString()}
                 </span>

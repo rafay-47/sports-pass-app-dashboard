@@ -604,7 +604,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
                             
                             {trainer.feedback && (
                               <div className="p-3 bg-white/5 rounded-lg">
-                                <div className="text-white/80 text-sm">"{trainer.feedback}"</div>
+                                <div className="text-white/80 text-sm">&quot;{trainer.feedback}&quot;</div>
                               </div>
                             )}
                           </div>

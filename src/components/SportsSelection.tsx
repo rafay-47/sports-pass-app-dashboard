@@ -17,9 +17,14 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
 
   // Safely read pricing from the sport object and provide sensible fallbacks
-  const getPricing = (sport: any) => {
+  const getPricing = (sport?: (typeof SPORTS)[number] | null): { basic: number; premium: number; elite: number | null } => {
     if (sport && sport.pricing && typeof sport.pricing === 'object') {
-      return sport.pricing as { basic: number; premium: number; elite: number | null };
+      const p = sport.pricing as Partial<Record<'basic' | 'premium' | 'elite', number | null>>;
+      return {
+        basic: typeof p.basic === 'number' ? p.basic : 0,
+        premium: typeof p.premium === 'number' ? p.premium : 0,
+        elite: typeof p.elite === 'number' ? p.elite : null,
+      };
     }
     return { basic: 0, premium: 0, elite: null };
   };

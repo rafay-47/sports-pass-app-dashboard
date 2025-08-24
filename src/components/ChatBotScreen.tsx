@@ -3,7 +3,6 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { ScrollArea } from './ui/scroll-area';
 import { Card, CardContent } from './ui/card';
-import { Badge } from './ui/badge';
 import { 
   Send, 
   Bot, 
@@ -12,11 +11,9 @@ import {
   MessageCircle, 
   Sparkles,
   Clock,
-  Star,
   HelpCircle,
-  Zap
 } from 'lucide-react';
-import { type User as UserType } from '../App';
+import { type User as UserType } from '../types';
 
 interface ChatBotScreenProps {
   user: UserType | null;
