@@ -28,7 +28,8 @@ import {
   Building,
   Activity
 } from 'lucide-react';
-import { type Membership, type User as UserType, type ServiceUsageHistory, type TrainerHistory, type TraineeInfo, type CheckIn, SPORTS, TRAINER_FEES } from '../App';
+import { SPORTS, TRAINER_FEES } from '../constants';
+import type { Membership, User as UserType, ServiceUsageHistory, TrainerHistory, TraineeInfo, CheckIn } from '../types';
 
 interface MembershipDetailsScreenProps {
   membership: Membership;
@@ -271,7 +272,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
                     </div>
                     <div>
                       <div className="text-white/60 text-sm">Last Session</div>
-                      <div className="text-white font-medium">{new Date(selectedTrainee.lastSession).toLocaleDateString()}</div>
+                      <div className="text-white font-medium">{selectedTrainee.lastSession ? new Date(selectedTrainee.lastSession).toLocaleDateString() : 'N/A'}</div>
                     </div>
                   </div>
                   
@@ -478,7 +479,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
                         {serviceHistory.slice(0, 3).map((service) => (
                           <div key={service.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
                             <div className="flex items-center gap-3">
-                              {getStatusIcon(service.status)}
+                              {getStatusIcon(service.status ? service.status : 'unknown')}
                               <div>
                                 <div className="text-white font-medium">{service.serviceName}</div>
                                 <div className="text-white/60 text-sm">{new Date(service.date).toLocaleDateString()}</div>
@@ -509,7 +510,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
                         <div className="space-y-3">
                           <div className="flex items-center justify-between">
                             <span className="text-white/80">Your Rate</span>
-                            <span className="text-green-400 font-bold">Rs {TRAINER_FEES[membership.tier].toLocaleString()}/hour</span>
+                            <span className="text-green-400 font-bold">Rs {TRAINER_FEES[membership.tier as keyof typeof TRAINER_FEES].toLocaleString()}/hour</span>
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="text-white/80">Active Trainees</span>
@@ -539,7 +540,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            {getStatusIcon(service.status)}
+                              {getStatusIcon(service.status ? service.status : 'unknown')}
                             <div>
                               <div className="text-white font-medium">{service.serviceName}</div>
                               <div className="text-white/60 text-sm">{new Date(service.date).toLocaleDateString()}</div>
@@ -598,7 +599,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
                             </div>
                             
                             <div className="text-white/60 text-sm mb-2">
-                              Last session: {new Date(trainer.lastSession).toLocaleDateString()}
+                              Last session: {trainer.lastSession ? new Date(trainer.lastSession).toLocaleDateString() : 'N/A'}
                             </div>
                             
                             {trainer.feedback && (
@@ -695,7 +696,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
                                 <div>
                                   <div className="text-white font-medium">{trainee.name}</div>
                                   <div className="text-white/60 text-sm">
-                                    {trainee.sessionsCompleted} sessions • {new Date(trainee.lastSession).toLocaleDateString()}
+                                    {trainee.sessionsCompleted} sessions • {trainee.lastSession ? new Date(trainee.lastSession).toLocaleDateString() : 'N/A'}
                                   </div>
                                 </div>
                               </div>

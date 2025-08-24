@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Check, Star } from 'lucide-react';
-import { type Sport } from '../App';
+import type { Sport } from '../types';
 
 interface SportsSelectorProps {
   sports: Sport[];

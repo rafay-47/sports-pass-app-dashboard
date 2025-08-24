@@ -8,7 +8,8 @@ import { Textarea } from './ui/textarea';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
 import { ArrowLeft, Upload, Award, Clock, MapPin, Info, CheckCircle, AlertCircle, Crown, Star, Shield, Users, UserCheck } from 'lucide-react';
-import { type User, type Membership, SPORTS, TRAINER_FEES } from '../App';
+import { SPORTS, TRAINER_FEES } from '../constants';
+import type { User, Membership } from '../types';
 
 interface TrainerRegistrationScreenProps {
   user: User;
@@ -250,7 +251,9 @@ export default function TrainerRegistrationScreen({
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {availableSports.map((sport) => (
+                    {availableSports.map((sport) => {
+                      if (!sport) return null;
+                      return (
                       <div key={sport.id} className="space-y-3">
                         <div className="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
                           <span className="text-2xl">{sport.icon}</span>
@@ -315,7 +318,8 @@ export default function TrainerRegistrationScreen({
                           </div>
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>

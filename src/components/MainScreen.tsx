@@ -4,7 +4,8 @@ import { Bell, User, Settings, Plus, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from './ui/alert-dialog';
-import { SPORTS, type Membership, type User as UserType, type NotificationItem, type ServicePurchase } from '../App';
+import { SPORTS } from '../constants';
+import type { Membership, User as UserType, NotificationItem, ServicePurchase, Sport } from '../types';
 import DigitalCard from './DigitalCard';
 import SportsSelector from './SportsSelector';
 import ServicesList from './ServicesList';
@@ -61,8 +62,8 @@ export default function MainScreen({
   
   // Get the sport data for the selected sport
   const displaySport = selectedSport ? 
-    SPORTS.find(s => s.id === selectedSport) : null;
-  
+    (SPORTS.find(s => s.id === selectedSport) ?? null) : null;
+
   // If no sport is selected, default to the most recent membership or first sport
   useEffect(() => {
     if (!selectedSport) {
@@ -101,7 +102,7 @@ export default function MainScreen({
       // Get user's membership tier for this sport
       const userMembership = memberships.find(m => m.sportId === selectedSport);
       if (userMembership) {
-        onTrainerListClick(selectedSport!, userMembership.tier);
+        onTrainerListClick(selectedSport!, userMembership.tier.toLowerCase() as 'basic' | 'standard' | 'premium');
       }
       return;
     }

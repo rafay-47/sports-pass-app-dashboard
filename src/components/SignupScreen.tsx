@@ -5,7 +5,7 @@ import { Label } from './ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { ArrowLeft, Eye, EyeOff, Mail, User, Phone, Lock } from 'lucide-react';
-import { SPORTS } from '../App';
+import { SPORTS } from '../constants';
 
 interface SignupScreenProps {
   onSignup: (userData: { name: string; email: string; phone: string; password: string }) => void;

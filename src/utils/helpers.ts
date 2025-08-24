@@ -1,3 +1,4 @@
+import { Award, Star, Trophy, Users } from 'lucide-react';
 import { type ClubEvent } from '../types';
 
 // Define constants directly in this file to avoid import issues
@@ -11,10 +12,10 @@ const SPORTS_TYPES = [
 ];
 
 const EVENT_TYPES = [
-  { id: 'tournament', label: 'Tournament', color: 'text-yellow-600' },
-  { id: 'workshop', label: 'Workshop', color: 'text-blue-600' },
-  { id: 'league', label: 'League', color: 'text-purple-600' },
-  { id: 'social', label: 'Social Event', color: 'text-green-600' }
+  { id: 'tournament', label: 'Tournament', color: 'text-yellow-600', icon: Trophy },
+  { id: 'workshop', label: 'Workshop', color: 'text-blue-600', icon: Star },
+  { id: 'league', label: 'League', color: 'text-purple-600', icon: Award },
+  { id: 'social', label: 'Social Event', color: 'text-green-600', icon: Users }
 ];
 
 const DIFFICULTY_LEVELS = [

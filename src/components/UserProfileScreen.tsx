@@ -5,7 +5,8 @@ import { Badge } from './ui/badge';
 import { Switch } from './ui/switch';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from './ui/alert-dialog';
 import { ArrowLeft, User, Mail, Phone, Calendar, Star, Award, Settings, LogOut, Users, Sun, Moon } from 'lucide-react';
-import { type User as UserType, type Membership, SPORTS } from '../App';
+import { SPORTS } from '../constants';
+import type { User as UserType, Membership } from '../types';
 import { useTheme } from './ThemeContext';
 
 interface UserProfileScreenProps {
@@ -97,7 +98,7 @@ export default function UserProfileScreen({
                     </div>
                     <div className="flex items-center gap-2 text-white/70">
                       <Calendar className="w-4 h-4" />
-                      <span className="text-sm">Member since {new Date(user.joinDate).toLocaleDateString()}</span>
+                      <span className="text-sm">Member since {user.joinDate ? new Date(user.joinDate).toLocaleDateString() : 'N/A'}</span>
                     </div>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ import {
   Zap,
   Target
 } from 'lucide-react';
-import { MOCK_FACILITIES } from '../App';
+import { MOCK_FACILITIES } from '../constants';
 
 interface QRScannerScreenProps {
   onScan: (qrCode: string) => void;

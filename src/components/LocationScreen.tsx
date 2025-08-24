@@ -24,7 +24,7 @@ import {
   Shield,
   Target
 } from 'lucide-react';
-import { type User } from '../App';
+import { type User } from '../types';
 
 interface LocationScreenProps {
   user: User | null;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Settings, Info, Crown, Star, Shield } from 'lucide-react';
-import { type Membership, type Sport } from '../App';
+import { type Membership, type Sport } from '../types';
 
 interface DigitalCardProps {
   membership: Membership;

@@ -2,7 +2,8 @@ import React from 'react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { Calendar, Hash, Star, Crown, Zap } from 'lucide-react';
-import { SPORTS, type Membership } from '../App';
+import type { Membership } from '../types';
+import { SPORTS } from '../constants';
 
 interface MembershipCardProps {
   membership: Membership;

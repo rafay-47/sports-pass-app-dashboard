@@ -16,7 +16,7 @@ import {
   ArrowRight,
   Sparkles
 } from 'lucide-react';
-import { type Sport, type Membership } from '../App';
+import type { Sport, Membership } from '../types';
 
 interface ServicesListProps {
   sport: Sport;
@@ -109,8 +109,8 @@ export default function ServicesList({ sport, membership, onServiceClick }: Serv
       {/* Services Grid */}
       <div className="space-y-4">
         {sport.services.map((service, index) => {
-          const isTrainer = isTrainerService(service);
-          const basePrice = getServicePrice(service);
+          const isTrainer = isTrainerService(service.toString());
+          const basePrice = getServicePrice(service.toString());
           const discountedPrice = Math.floor(basePrice * (1 - tierBenefit.discount / 100));
           
           return (
@@ -120,7 +120,7 @@ export default function ServicesList({ sport, membership, onServiceClick }: Serv
             >
               <CardContent className="p-4">
                 <button 
-                  onClick={() => onServiceClick(service)}
+                  onClick={() => onServiceClick(service.toString())}
                   className="w-full text-left"
                 >
                   <div className="flex items-start justify-between mb-3">
@@ -133,13 +133,13 @@ export default function ServicesList({ sport, membership, onServiceClick }: Serv
                           color: sport.color
                         }}
                       >
-                        {getServiceIcon(service)}
+                        {getServiceIcon(service.toString())}
                       </div>
                       
                       <div className="flex-1">
-                        <div className="text-white font-bold text-base mb-1">{service}</div>
+                        <div className="text-white font-bold text-base mb-1">{service.toString()}</div>
                         <div className="text-white/70 text-sm mb-2 leading-relaxed">
-                          {getServiceDescription(service, sport.name)}
+                          {getServiceDescription(service.toString(), sport.name)}
                         </div>
                         
                         {/* Service Features */}
@@ -194,7 +194,7 @@ export default function ServicesList({ sport, membership, onServiceClick }: Serv
                   </div>
 
                   {/* Special Offers for Premium Members */}
-                  {membership.tier === 'premium' && service.toLowerCase().includes('trainer') && (
+                  {membership.tier === 'premium' && service.toString().toLowerCase().includes('trainer') && (
                     <div className="mt-3 p-2 bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 rounded-lg border border-yellow-500/20">
                       <div className="text-yellow-300 text-sm font-medium">🔥 Premium Exclusive</div>
                       <div className="text-white/70 text-xs">
@@ -204,7 +204,7 @@ export default function ServicesList({ sport, membership, onServiceClick }: Serv
                   )}
 
                   {/* Popular Service Indicator */}
-                  {(service.toLowerCase().includes('trainer') || service.toLowerCase().includes('booking')) && (
+                  {(service.toString().toLowerCase().includes('trainer') || service.toString().toLowerCase().includes('booking')) && (
                     <div className="mt-3 flex items-center gap-2">
                       <Badge className="bg-green-500/20 text-green-300 border-green-500/30 text-xs">
                         Most Popular

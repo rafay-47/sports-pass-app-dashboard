@@ -73,7 +73,9 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
       timings: {
         ...prev.timings,
         [day]: {
-          ...prev.timings?.[day],
+          open: prev.timings?.[day]?.open ?? '06:00',
+          close: prev.timings?.[day]?.close ?? '22:00',
+          isOpen: prev.timings?.[day]?.isOpen ?? true,
           [field]: value
         }
       }
@@ -84,7 +86,10 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
     setFormData(prev => ({
       ...prev,
       pricing: {
-        ...prev.pricing,
+        basic: prev.pricing?.basic ?? 0,
+        standard: prev.pricing?.standard ?? 0,
+        premium: prev.pricing?.premium ?? 0,
+        ...(prev.pricing || {}),
         [tier]: value
       }
     }));

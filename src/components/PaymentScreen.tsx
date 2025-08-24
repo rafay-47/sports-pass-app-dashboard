@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { ArrowLeft, CreditCard, Smartphone, Building2, Shield, CheckCircle } from 'lucide-react';
-import { type User, type Sport } from '../App';
+import type { User, Sport } from '../types';
 
 interface PaymentScreenProps {
   user: User;
@@ -404,9 +404,9 @@ export default function PaymentScreen({
           </h3>
           <div className="space-y-2">
             {sport.services.map((service, index) => (
-              <div key={index} className="flex items-center gap-3 text-sm text-white/70">
+              <div key={typeof service === 'string' ? `s-${index}` : service.id} className="flex items-center gap-3 text-sm text-white/70">
                 <div className="w-2 h-2 bg-[#FFB948] rounded-full"></div>
-                <span>{service}</span>
+                <span>{typeof service === 'string' ? service : service.name}</span>
               </div>
             ))}
           </div>

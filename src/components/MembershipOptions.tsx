@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Crown, Star, Zap, Check, Sparkles, ArrowRight, Lock } from 'lucide-react';
-import { type Sport } from '../App';
+import { type Sport } from '../types';
 
 interface MembershipOptionsProps {
   sport: Sport;

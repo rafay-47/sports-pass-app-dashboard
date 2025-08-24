@@ -22,7 +22,8 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react';
-import { type User, type Membership, SPORTS, TRAINER_FEES } from '../App';
+import { SPORTS, TRAINER_FEES } from '../constants';
+import type { User, Membership, Sport } from '../types';
 
 interface TrainerListScreenProps {
   sport: string;
@@ -183,7 +184,7 @@ export default function TrainerListScreen({ sport, userTier, user, memberships, 
     );
   }
 
-  const selectedSport = SPORTS.find(s => s.id === sport);
+  const selectedSport = SPORTS.find(s => s.id === sport) as Sport | undefined;
   const userMembership = memberships.find(m => m.sportId === sport);
 
   const getTierIcon = (tier: string) => {
@@ -205,7 +206,7 @@ export default function TrainerListScreen({ sport, userTier, user, memberships, 
   const canAccessTier = (tier: 'basic' | 'standard' | 'premium') => {
     if (!userMembership) return false;
     const tierLevels = { basic: 1, standard: 2, premium: 3 };
-    return tierLevels[userMembership.tier] >= tierLevels[tier];
+    return tierLevels[userMembership.tier as keyof typeof tierLevels] >= tierLevels[tier];
   };
 
   const getGenderIcon = (gender: string) => {

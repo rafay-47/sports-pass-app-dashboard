@@ -45,3 +45,25 @@ export const AMENITIES = [
   'Equipment Rental', 'First Aid', 'Security', 'Cafeteria', 'Pro Shop',
   'Personal Training', 'Group Classes', 'Towel Service', 'Water Fountain'
 ];
+
+// A richer SPORTS constant used by UI components (keeps backward compatibility with older imports)
+export const SPORTS = [
+  { id: 'gym', name: 'Gym', displayName: 'Gym', pricing: { basic: 1000, standard: 2000, premium: 3000 }, icon: '💪', color: '#FFB948', services: ['Personal Training', 'Equipment Rental', 'Group Classes'] },
+  { id: 'cricket', name: 'Cricket', displayName: 'Cricket', pricing: { basic: 1500, standard: 2500, premium: 3500 }, icon: '🏏', color: '#A148FF', services: ['Pitch Booking', 'Coach Training', 'Equipment Rental'] },
+  { id: 'tennis', name: 'Table Tennis', displayName: 'Table Tennis', pricing: { basic: 1200, standard: 2200, premium: 3200 }, icon: '🏓', color: '#FF6B6B', services: ['Court Booking', 'Coach', 'Racket Rental'] },
+  { id: 'snooker', name: 'Snooker', displayName: 'Snooker', pricing: { basic: 800, standard: 1800, premium: 2800 }, icon: '🎱', color: '#4ECDC4', services: ['Table Booking', 'Cue Rental'] },
+  { id: 'badminton', name: 'Badminton', displayName: 'Badminton', pricing: { basic: 900, standard: 1900, premium: 2900 }, icon: '🏸', color: '#95E1D3', services: ['Court Booking', 'Shuttlecock Purchase'] },
+  { id: 'multi-sport', name: 'Multi-Sport Complex', displayName: 'Multi-Sport', pricing: { basic: 2000, standard: 3000, premium: 4000 }, icon: '🏟️', color: '#FF6B6B', services: ['Facility Booking', 'Event Hosting'] }
+];
+
+export const TRAINER_FEES = {
+  basic: 50000,
+  standard: 120000,
+  premium: 350000
+};
+
+export const MOCK_FACILITIES = [
+  { id: 'fac_1', name: 'Elite Fitness Center DHA', type: 'Premium Gym', qrCode: 'QR_GYM_DHA_001', location: 'DHA Phase 5, Defence, Karachi' },
+  { id: 'fac_2', name: 'Community Sports Complex', type: 'Multi-Sport', qrCode: 'QR_COMPLEX_002', location: 'North Nazimabad, Karachi' },
+  { id: 'fac_3', name: 'Premium Tennis Arena', type: 'Tennis Court', qrCode: 'QR_TENNIS_003', location: 'Clifton, Karachi' }
+];

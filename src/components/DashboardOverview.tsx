@@ -14,7 +14,7 @@ import {
   CreditCard
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { type Club, type FinancialData, type ClubEvent, type NotificationItem } from '../App';
+import { type Club, type FinancialData, type ClubEvent, type NotificationItem } from '../types';
 
 interface DashboardOverviewProps {
   club: Club | null;

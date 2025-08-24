@@ -22,7 +22,7 @@ import {
   Gift,
   AlertCircle
 } from 'lucide-react';
-import { type User, type Membership, type Event } from '../App';
+import { type User, type Membership, type Event } from '../types';
 
 interface EventsScreenProps {
   user: User | null;

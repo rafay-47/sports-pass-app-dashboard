@@ -7,7 +7,7 @@ import { Badge } from './ui/badge';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Textarea } from './ui/textarea';
 import { ArrowLeft, CreditCard, Calendar, Clock, Users, Trophy, MapPin, Shield, CheckCircle, Star } from 'lucide-react';
-import { type User, type Event } from '../App';
+import { type User, type Event } from '../types';
 
 interface EventRegistrationScreenProps {
   user: User;

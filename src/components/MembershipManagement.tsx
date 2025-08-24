@@ -17,8 +17,8 @@ import {
   Star,
   Zap
 } from 'lucide-react';
-import { type Membership, type Sport } from '../App';
-import { toast } from 'sonner@2.0.3';
+import { type Membership, type Sport } from '../types';
+import { toast } from 'sonner';
 
 interface MembershipManagementProps {
   membership: Membership;
@@ -66,7 +66,8 @@ export default function MembershipManagement({
   };
 
   const getTierPrice = () => {
-    return sport.pricing[membership.tier];
+    const tier = membership.tier as keyof typeof sport.pricing;
+    return sport.pricing[tier];
   };
 
   const formatDate = (dateString: string) => {

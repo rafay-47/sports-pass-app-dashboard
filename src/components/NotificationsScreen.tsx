@@ -18,7 +18,7 @@ import {
   Calendar,
   Users
 } from 'lucide-react';
-import { type NotificationItem } from '../App';
+import type { NotificationItem } from '../types';
 
 interface NotificationsScreenProps {
   notifications: NotificationItem[];

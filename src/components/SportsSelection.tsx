@@ -4,7 +4,8 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { ScrollArea } from './ui/scroll-area';
 import { ArrowLeft, Star, Crown, Zap, Check } from 'lucide-react';
-import { SPORTS, type Membership } from '../App';
+import { SPORTS } from '../constants';
+import type { Membership } from '../types';
 
 interface SportsSelectionProps {
   onPurchaseMembership: (sportId: string, tier: 'basic' | 'premium' | 'elite') => void;
@@ -14,6 +15,14 @@ interface SportsSelectionProps {
 
 export default function SportsSelection({ onPurchaseMembership, onBack, existingMemberships }: SportsSelectionProps) {
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
+
+  // Safely read pricing from the sport object and provide sensible fallbacks
+  const getPricing = (sport: any) => {
+    if (sport && sport.pricing && typeof sport.pricing === 'object') {
+      return sport.pricing as { basic: number; premium: number; elite: number | null };
+    }
+    return { basic: 0, premium: 0, elite: null };
+  };
 
   const hasMembership = (sportId: string) => {
     return existingMemberships.some(m => m.sportId === sportId);
@@ -29,6 +38,8 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
   if (selectedSport) {
     const sport = SPORTS.find(s => s.id === selectedSport);
     if (!sport) return null;
+
+    const pricing = getPricing(sport);
 
     return (
       <div className="h-full flex flex-col bg-gray-50">
@@ -55,7 +66,7 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
-                  <span className="text-3xl font-bold">${sport.pricing.basic}</span>
+                  <span className="text-3xl font-bold">${pricing.basic}</span>
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <ul className="space-y-2 mb-6">
@@ -87,7 +98,7 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
-                  <span className="text-3xl font-bold">${sport.pricing.premium}</span>
+                  <span className="text-3xl font-bold">${pricing.premium}</span>
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <ul className="space-y-2 mb-6">
@@ -112,7 +123,7 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
             </Card>
 
             {/* Elite Tier */}
-            {sport.pricing.elite && (
+            {pricing.elite && (
               <Card className="relative border-yellow-200 bg-gradient-to-br from-yellow-50 to-amber-50">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -123,7 +134,7 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
                 </CardHeader>
                 <CardContent>
                   <div className="mb-4">
-                    <span className="text-3xl font-bold">${sport.pricing.elite}</span>
+                    <span className="text-3xl font-bold">${pricing.elite}</span>
                     <span className="text-muted-foreground">/month</span>
                   </div>
                   <ul className="space-y-2 mb-6">
@@ -168,39 +179,42 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
 
       <ScrollArea className="flex-1 p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {SPORTS.map((sport) => (
-            <Card 
-              key={sport.id}
-              className={`cursor-pointer transition-all hover:shadow-md ${
-                hasMembership(sport.id) ? 'opacity-50' : 'hover:scale-105'
-              }`}
-              onClick={() => !hasMembership(sport.id) && setSelectedSport(sport.id)}
-            >
-              <CardHeader className="text-center pb-2">
-                <div className="text-4xl mb-2">{sport.icon}</div>
-                <CardTitle className="flex items-center justify-center gap-2">
-                  {sport.name}
-                  {hasMembership(sport.id) && (
-                    <Badge variant="secondary">Owned</Badge>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <div className="text-sm text-muted-foreground mb-3">
-                  Starting from
-                </div>
-                <div className="text-2xl font-bold mb-4">
-                  ${sport.pricing.basic}/month
-                </div>
-                <div className="space-y-1 text-xs text-muted-foreground">
-                  {sport.services.slice(0, 2).map((service, index) => (
-                    <div key={index}>• {service}</div>
-                  ))}
-                  <div>+ more services</div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {SPORTS.map((sport) => {
+            const cardPricing = getPricing(sport);
+            return (
+              <Card 
+                key={sport.id}
+                className={`cursor-pointer transition-all hover:shadow-md ${
+                  hasMembership(sport.id) ? 'opacity-50' : 'hover:scale-105'
+                }`}
+                onClick={() => !hasMembership(sport.id) && setSelectedSport(sport.id)}
+              >
+                <CardHeader className="text-center pb-2">
+                  <div className="text-4xl mb-2">{sport.icon}</div>
+                  <CardTitle className="flex items-center justify-center gap-2">
+                    {sport.name}
+                    {hasMembership(sport.id) && (
+                      <Badge variant="secondary">Owned</Badge>
+                    )}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <div className="text-sm text-muted-foreground mb-3">
+                    Starting from
+                  </div>
+                  <div className="text-2xl font-bold mb-4">
+                    ${cardPricing.basic}/month
+                  </div>
+                  <div className="space-y-1 text-xs text-muted-foreground">
+                    {sport.services.slice(0, 2).map((service, index) => (
+                      <div key={index}>• {service}</div>
+                    ))}
+                    <div>+ more services</div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </ScrollArea>
     </div>
