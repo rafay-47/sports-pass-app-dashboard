@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react@0.487.0";
-import { DayPicker } from "react-day-picker@8.10.1";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DayPicker } from "react-day-picker";
 
 import { cn } from "./utils";
 import { buttonVariants } from "./button";
@@ -59,14 +59,19 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      components={{
-        IconLeft: ({ className, ...props }) => (
-          <ChevronLeft className={cn("size-4", className)} {...props} />
-        ),
-        IconRight: ({ className, ...props }) => (
-          <ChevronRight className={cn("size-4", className)} {...props} />
-        ),
-      }}
+      // define icons separately and cast to `any` to avoid strict DayPicker component typings
+      components={(() => {
+        const icons = {
+          IconLeft: ({ className, ...iconProps }: { className?: string } & React.SVGProps<SVGSVGElement>) => (
+            <ChevronLeft className={cn("size-4", className)} {...iconProps} />
+          ),
+          IconRight: ({ className, ...iconProps }: { className?: string } & React.SVGProps<SVGSVGElement>) => (
+            <ChevronRight className={cn("size-4", className)} {...iconProps} />
+          ),
+        };
+
+        return icons as any;
+      })()}
       {...props}
     />
   );
