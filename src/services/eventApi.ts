@@ -128,7 +128,7 @@ class EventApiService extends BaseApiService {
   async getOrganizerEvents(): Promise<EventResponse> {
     try {
       console.log('EventApi - Fetching organizer events...');
-      const response = await this.get<any>('/events/organizer');
+      const response = await this.get<{ events: ApiEventResponse[] }>('/events/organizer');
       console.log('EventApi - Raw response from /events/organizer:', response);
       
       // Handle the response structure returned by baseApi
@@ -188,7 +188,7 @@ class EventApiService extends BaseApiService {
   async getEventRegistrations(eventId: string): Promise<EventRegistrationResponse> {
     try {
       console.log(`EventApi - Fetching registrations for event: ${eventId}`);
-      const response = await this.get<any>(`/event-registrations/event/${eventId}`);
+      const response = await this.get<{ registrations: EventRegistration[] }>(`/event-registrations/event/${eventId}`);
       console.log('EventApi - Raw response from /event-registrations/event:', response);
 
       // Handle the response structure returned by baseApi
@@ -246,7 +246,7 @@ class EventApiService extends BaseApiService {
       hostingClub: apiEvent.location_type === 'custom' ? 'other' : (apiEvent.club_id || ''),
       title: apiEvent.title,
       description: apiEvent.description,
-      type: apiEvent.type as any,
+      type: apiEvent.type as 'tournament' | 'workshop' | 'league' | 'social',
       sport: apiEvent.sport_id,
       date: eventDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
       time: eventTime.toTimeString().slice(0, 5), // Format as HH:MM
@@ -266,7 +266,7 @@ class EventApiService extends BaseApiService {
           third: apiEvent.prizes[2] || ''
         }
       },
-      difficulty: apiEvent.difficulty as any,
+      difficulty: apiEvent.difficulty as 'beginner' | 'intermediate' | 'advanced',
       images: [],
       status: apiEvent.status, // Default status
       createdAt: apiEvent.created_at,

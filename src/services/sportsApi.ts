@@ -17,25 +17,27 @@ class SportsApiService extends BaseApiService {
    */
   async getActiveSports(): Promise<Sport[]> {
     try {
-      const response = await this.get('') as any;
+      const response = await this.get<unknown>('');
+      const apiResponse = response as { status?: string; message?: string; data?: { sports?: Sport[] }; sports?: Sport[] };
 
       //console.log('Sports API response:', response);
 
       // Handle both wrapped and unwrapped response formats
-      if (response.status === 'error') {
-        throw new Error(response.message || 'Failed to fetch sports data');
+      if (apiResponse.status === 'error') {
+        throw new Error(apiResponse.message || 'Failed to fetch sports data');
       }
 
       // Get the data object (either from wrapped response or direct)
-      const data = response.data || response;
+      const data = apiResponse.data || apiResponse;
+      const responseData = data as Sport[] | { sports?: Sport[]; data?: Sport[] };
       
       // Handle different response formats
-      if (Array.isArray(data)) {
-        return data;
-      } else if (data.sports && Array.isArray(data.sports)) {
-        return data.sports;
-      } else if (data.data && Array.isArray(data.data)) {
-        return data.data;
+      if (Array.isArray(responseData)) {
+        return responseData;
+      } else if (responseData.sports && Array.isArray(responseData.sports)) {
+        return responseData.sports;
+      } else if (responseData.data && Array.isArray(responseData.data)) {
+        return responseData.data;
       } else {
         console.warn('Unexpected sports response format:', data);
         return [];
@@ -51,19 +53,20 @@ class SportsApiService extends BaseApiService {
    */
   async getSportById(sportId: string): Promise<Sport | null> {
     try {
-      const response = await this.get(`/${sportId}`) as any;
+      const response = await this.get<unknown>(`/${sportId}`);
+      const apiResponse = response as { status?: string; message?: string; data?: Sport; };
 
       // Handle both wrapped and unwrapped response formats
-      if (response.status === 'error') {
-        if (response.message?.includes('not found')) {
+      if (apiResponse.status === 'error') {
+        if (apiResponse.message?.includes('not found')) {
           return null;
         }
-        throw new Error(response.message || 'Failed to fetch sport data');
+        throw new Error(apiResponse.message || 'Failed to fetch sport data');
       }
 
       // Get the data object (either from wrapped response or direct)
-      const data = response.data || response;
-      return data;
+      const data = apiResponse.data || apiResponse;
+      return data as Sport;
     } catch (error) {
       console.error(`Error fetching sport ${sportId}:`, error);
       throw error;
