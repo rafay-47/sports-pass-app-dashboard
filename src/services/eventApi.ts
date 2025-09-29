@@ -282,6 +282,7 @@ class EventApiService extends BaseApiService {
   /**
    * Convert component event format to API format (handles both full and partial updates)
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   convertComponentEventToApiEvent(componentEvent: any): Partial<CreateEventRequest> {
     console.log('Converting component event to API format:', componentEvent);
     
