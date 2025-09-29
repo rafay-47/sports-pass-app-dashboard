@@ -173,7 +173,7 @@ export default function MainScreen({
                 (memberships.length > 0 ? `${memberships.length} Active Memberships` : 'Welcome back!') :
                 'Browse memberships • Sign up to purchase'
               }
-              {user?.isTrainer && (
+              {user?.is_trainer && (
                 <span className="ml-2 text-[#FFB948]">• Trainer</span>
               )}
             </div>
@@ -268,7 +268,7 @@ export default function MainScreen({
                     className="font-extrabold text-xl mb-2"
                     style={{ color: displaySport.color }}
                   >
-                    {displaySport.displayName}
+                    {displaySport.display_name}
                   </div>
                   <div className="text-white/70 text-sm mb-3">
                     {user ? 'Choose your membership plan' : 'Sign up to unlock this membership'}
@@ -276,7 +276,7 @@ export default function MainScreen({
                   <Badge 
                     className="bg-white/10 text-white/80 border-white/20"
                   >
-                    {displaySport.services.length} services available
+                    {displaySport.number_of_services} services available
                   </Badge>
                 </div>
               </div>
@@ -394,7 +394,7 @@ export default function MainScreen({
                   <div className="text-[#A148FF] text-xl font-bold">
                     {memberships.reduce((total, m) => {
                       const sport = SPORTS.find(s => s.id === m.sportId);
-                      return total + (sport?.services.length || 0);
+                      return total + (sport?.number_of_services || 0);
                     }, 0)}
                   </div>
                   <div className="text-white/60 text-xs">Services</div>

@@ -61,7 +61,7 @@ export default function DigitalCard({ membership, sport, onManage, clickable = f
             <div className="text-4xl">{sport.icon}</div>
             <div>
               <div className="text-white font-extrabold text-lg tracking-wide">
-                {sport.displayName}
+                {sport.name}
               </div>
               <div className="flex items-center gap-2">
                 <Badge 
@@ -122,7 +122,7 @@ export default function DigitalCard({ membership, sport, onManage, clickable = f
         {/* Services Access */}
         <div className="flex items-center justify-between">
           <div className="text-white/90 text-sm">
-            Access to {sport.services.length} premium services
+            Access to {sport.number_of_services} premium services
           </div>
           <div className="text-white/70 text-xs">
             Since {new Date(membership.purchaseDate).toLocaleDateString()}

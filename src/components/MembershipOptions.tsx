@@ -18,7 +18,7 @@ export default function MembershipOptions({ sport, onPurchase, isLoading = false
     { 
       key: 'basic' as const, 
       name: 'Basic', 
-      price: sport.pricing.basic,
+      price: 0,
       icon: <Zap className="w-5 h-5" />,
       color: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
       bgColor: 'from-blue-500/10 to-blue-600/20',
@@ -29,7 +29,7 @@ export default function MembershipOptions({ sport, onPurchase, isLoading = false
     { 
       key: 'standard' as const, 
       name: 'Standard', 
-      price: sport.pricing.standard,
+      price: 0,
       icon: <Star className="w-5 h-5" />,
       color: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
       bgColor: 'from-purple-500/10 to-purple-600/20',
@@ -40,7 +40,7 @@ export default function MembershipOptions({ sport, onPurchase, isLoading = false
     { 
       key: 'premium' as const, 
       name: 'Premium', 
-      price: sport.pricing.premium,
+      price: 0,
       icon: <Crown className="w-5 h-5" />,
       color: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
       bgColor: 'from-yellow-500/10 to-yellow-600/20',
@@ -177,10 +177,10 @@ export default function MembershipOptions({ sport, onPurchase, isLoading = false
               <div className="border-t border-white/10 pt-4">
                 <div className="flex items-center justify-between text-sm">
                   <div className="text-white/70">
-                    <span className="font-medium">{sport.services.length} Premium Services</span> included
+                    <span className="font-medium">{sport.number_of_services} Premium Services</span> included
                   </div>
                   <div className="text-[#FFB948]">
-                    Worth Rs {(sport.services.length * 1000).toLocaleString()}+
+                    Worth Rs {(sport.number_of_services! * 1000).toLocaleString()}+
                   </div>
                 </div>
               </div>

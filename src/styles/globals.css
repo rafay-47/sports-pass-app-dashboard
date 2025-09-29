@@ -4,64 +4,68 @@
 
 :root {
   --font-size: 14px;
-  --background: #ffffff;
-  --foreground: #000000;
-  --card: #ffffff;
-  --card-foreground: #000000;
-  --popover: #ffffff;
-  --popover-foreground: #000000;
-  --primary: #A148FF;
+  --background: #FFFFFF;
+  --foreground: #111827;
+  --card: #FFFFFF;
+  --card-foreground: #111827;
+  --popover: #FFFFFF;
+  --popover-foreground: #111827;
+  --primary: #FF7130;
   --primary-foreground: #ffffff;
-  --secondary: #FFB948;
+  --secondary: #FF3C68;
   --secondary-foreground: #ffffff;
-  --muted: #f8f9fa;
-  --muted-foreground: #6c757d;
-  --accent: #e9ecef;
-  --accent-foreground: #212529;
+  --muted: #F9FAFB;
+  --muted-foreground: #4B5563;
+  --accent: #F3F4F6;
+  --accent-foreground: #374151;
   --destructive: #dc3545;
   --destructive-foreground: #ffffff;
   --border: rgba(0, 0, 0, 0.1);
   --input: rgba(0, 0, 0, 0.1);
-  --input-background: rgba(0, 0, 0, 0.05);
-  --switch-background: #dee2e6;
+  --input-background: #F9FAFB;
+  --switch-background: #E5E7EB;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #A148FF;
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --ring: #FF7130;
+  --chart-1: #FF7130;
+  --chart-2: #FF3C68;
+  --chart-3: #FF8A65;
+  --chart-4: #FF6B9D;
+  --chart-5: #FFA726;
   --radius: 0.625rem;
+  --gradient-primary: linear-gradient(to right, #FF7130, #FF3C68);
 }
 
 .dark {
-  --background: #252525;
-  --foreground: #ffffff;
-  --card: #252525;
-  --card-foreground: #ffffff;
-  --popover: #252525;
-  --popover-foreground: #ffffff;
-  --primary: #A148FF;
+  --background: #121212;
+  --foreground: #E0E0E0;
+  --card: #1E1E1E;
+  --card-foreground: #E0E0E0;
+  --popover: #1E1E1E;
+  --popover-foreground: #E0E0E0;
+  --primary: #FF7130;
   --primary-foreground: #ffffff;
-  --secondary: #FFB948;
+  --secondary: #FF3C68;
   --secondary-foreground: #ffffff;
-  --muted: rgba(255, 255, 255, 0.1);
-  --muted-foreground: rgba(255, 255, 255, 0.6);
-  --accent: rgba(255, 255, 255, 0.1);
-  --accent-foreground: #ffffff;
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --muted: #2D2D2D;
+  --muted-foreground: #A0A0A0;
+  --accent: #2D2D2D;
+  --accent-foreground: #E0E0E0;
+  --destructive: #FF4444;
+  --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.1);
-  --ring: #A148FF;
+  --input-background: #2D2D2D;
+  --switch-background: #2D2D2D;
+  --ring: #FF7130;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-1: #FF7130;
+  --chart-2: #FF3C68;
+  --chart-3: #FF8A65;
+  --chart-4: #FF6B9D;
+  --chart-5: #FFA726;
+  --gradient-primary: linear-gradient(to right, #FF7130, #FF3C68);
 }
 
 @theme inline {
@@ -86,6 +90,7 @@
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
+  --gradient-primary: var(--gradient-primary);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -108,7 +113,7 @@
     overflow-scrolling: touch;
   }
 
-  html, body {
+  html {
     height: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -179,23 +184,24 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(161, 72, 255, 0.1);
+  background: rgba(255, 113, 48, 0.1);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(161, 72, 255, 0.6);
+  background: linear-gradient(to bottom, #FF7130, #FF3C68);
   border-radius: 3px;
-  border: 1px solid rgba(161, 72, 255, 0.1);
+  border: 1px solid rgba(255, 113, 48, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(161, 72, 255, 0.8);
+  background: linear-gradient(to bottom, #FF7130, #FF3C68);
+  opacity: 0.8;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(161, 72, 255, 0.6) rgba(161, 72, 255, 0.1);
+  scrollbar-color: #FF7130 rgba(255, 113, 48, 0.1);
 }
 
 [data-radix-scroll-area-viewport] {
@@ -240,7 +246,7 @@ html {
   }
   
   ::-webkit-scrollbar-thumb {
-    background: rgba(161, 72, 255, 0.8);
+    background: linear-gradient(to bottom, #FF7130, #FF3C68);
     border-radius: 4px;
   }
 
@@ -253,4 +259,40 @@ html {
   textarea:focus {
     font-size: 16px;
   }
+}
+
+/* Orange-Pink Gradient Utilities */
+.gradient-text-orange-pink {
+  background: linear-gradient(to right, #FF7130, #FF3C68);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-bg-orange-pink {
+  background: linear-gradient(to right, #FF7130, #FF3C68);
+}
+
+.gradient-border-orange-pink {
+  border-image: linear-gradient(to right, #FF7130, #FF3C68) 1;
+  border-width: 2px;
+  border-style: solid;
+}
+
+/* Hover effects for gradient elements */
+.hover\:gradient-glow:hover {
+  box-shadow: 0 0 20px rgba(255, 113, 48, 0.3), 0 0 40px rgba(255, 60, 104, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Enhanced gradient backgrounds for cards and components */
+.gradient-card {
+  background: linear-gradient(135deg, rgba(255, 113, 48, 0.1), rgba(255, 60, 104, 0.1));
+  border: 1px solid rgba(255, 113, 48, 0.2);
+}
+
+.dark .gradient-card {
+  background: linear-gradient(135deg, rgba(255, 113, 48, 0.05), rgba(255, 60, 104, 0.05));
+  border: 1px solid rgba(255, 113, 48, 0.1);
 }

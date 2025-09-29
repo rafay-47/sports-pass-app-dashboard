@@ -73,7 +73,7 @@ export default function PaymentScreen({
     cardholderName: ''
   });
 
-  const price = sport.pricing[pendingPurchase.tier];
+  const price = 0;
   const processingFee = Math.round(price * 0.025); // 2.5% processing fee
   const total = price + processingFee;
 
@@ -402,14 +402,14 @@ export default function PaymentScreen({
             <CheckCircle className="w-5 h-5 text-green-400" />
             What You Get
           </h3>
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             {sport.services.map((service, index) => (
               <div key={typeof service === 'string' ? `s-${index}` : service.id} className="flex items-center gap-3 text-sm text-white/70">
                 <div className="w-2 h-2 bg-[#FFB948] rounded-full"></div>
                 <span>{typeof service === 'string' ? service : service.name}</span>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

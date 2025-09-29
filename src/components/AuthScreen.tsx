@@ -8,7 +8,7 @@ import { Building2, Mail, Phone, Lock, User, CheckCircle } from 'lucide-react';
 
 interface AuthScreenProps {
   onLogin: (userData: { email: string; password: string }) => void;
-  onSignup: (userData: { name: string; email: string; phone: string; password: string }) => void;
+  onSignup: (userData: { name: string; email: string; phone: string; password: string; user_role: string }) => void;
   isLoading: boolean;
 }
 
@@ -30,7 +30,8 @@ export default function AuthScreen({ onLogin, onSignup, isLoading }: AuthScreenP
       name: signupData.name,
       email: signupData.email,
       phone: signupData.phone,
-      password: signupData.password
+      password: signupData.password,
+      user_role: 'owner'
     });
   };
 

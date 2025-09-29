@@ -1,5 +1,6 @@
 import React from 'react';
 import { Banknote, Wallet, CreditCard, Trophy, Star, Award, Users } from 'lucide-react';
+import type { Sport } from '../types';
 
 export const SPORTS_TYPES = [
   { id: 'gym', name: 'Gym', icon: '💪', color: '#FFB948' },
@@ -47,13 +48,85 @@ export const AMENITIES = [
 ];
 
 // A richer SPORTS constant used by UI components (keeps backward compatibility with older imports)
-export const SPORTS = [
-  { id: 'gym', name: 'Gym', displayName: 'Gym', pricing: { basic: 1000, standard: 2000, premium: 3000 }, icon: '💪', color: '#FFB948', services: ['Personal Training', 'Equipment Rental', 'Group Classes'] },
-  { id: 'cricket', name: 'Cricket', displayName: 'Cricket', pricing: { basic: 1500, standard: 2500, premium: 3500 }, icon: '🏏', color: '#A148FF', services: ['Pitch Booking', 'Coach Training', 'Equipment Rental'] },
-  { id: 'tennis', name: 'Table Tennis', displayName: 'Table Tennis', pricing: { basic: 1200, standard: 2200, premium: 3200 }, icon: '🏓', color: '#FF6B6B', services: ['Court Booking', 'Coach', 'Racket Rental'] },
-  { id: 'snooker', name: 'Snooker', displayName: 'Snooker', pricing: { basic: 800, standard: 1800, premium: 2800 }, icon: '🎱', color: '#4ECDC4', services: ['Table Booking', 'Cue Rental'] },
-  { id: 'badminton', name: 'Badminton', displayName: 'Badminton', pricing: { basic: 900, standard: 1900, premium: 2900 }, icon: '🏸', color: '#95E1D3', services: ['Court Booking', 'Shuttlecock Purchase'] },
-  { id: 'multi-sport', name: 'Multi-Sport Complex', displayName: 'Multi-Sport', pricing: { basic: 2000, standard: 3000, premium: 4000 }, icon: '🏟️', color: '#FF6B6B', services: ['Facility Booking', 'Event Hosting'] }
+export const SPORTS: Sport[] = [
+  {
+    id: 'gym',
+    name: 'Gym',
+    display_name: 'Gym',
+    icon: '💪',
+    color: '#FFB948',
+    description: 'Professional gym facilities with state-of-the-art equipment',
+    number_of_services: 3,
+    is_active: true,
+    created_at: null,
+    updated_at: null,
+    pricing: { basic: 1000, standard: 2000, premium: 3000 }
+  },
+  {
+    id: 'cricket',
+    name: 'Cricket',
+    display_name: 'Cricket',
+    icon: '🏏',
+    color: '#A148FF',
+    description: 'Cricket facilities for training and matches',
+    number_of_services: 3,
+    is_active: true,
+    created_at: null,
+    updated_at: null,
+    pricing: { basic: 1500, standard: 2500, premium: 3500 }
+  },
+  {
+    id: 'tennis',
+    name: 'Table Tennis',
+    display_name: 'Table Tennis',
+    icon: '🏓',
+    color: '#FF6B6B',
+    description: 'Table tennis courts and training facilities',
+    number_of_services: 3,
+    is_active: true,
+    created_at: null,
+    updated_at: null,
+    pricing: { basic: 1200, standard: 2200, premium: 3200 }
+  },
+  {
+    id: 'snooker',
+    name: 'Snooker',
+    display_name: 'Snooker',
+    icon: '🎱',
+    color: '#4ECDC4',
+    description: 'Snooker tables for professional and recreational play',
+    number_of_services: 2,
+    is_active: true,
+    created_at: null,
+    updated_at: null,
+    pricing: { basic: 800, standard: 1800, premium: 2800 }
+  },
+  {
+    id: 'badminton',
+    name: 'Badminton',
+    display_name: 'Badminton',
+    icon: '🏸',
+    color: '#95E1D3',
+    description: 'Badminton courts for singles and doubles play',
+    number_of_services: 2,
+    is_active: true,
+    created_at: null,
+    updated_at: null,
+    pricing: { basic: 900, standard: 1900, premium: 2900 }
+  },
+  {
+    id: 'multi-sport',
+    name: 'Multi-Sport Complex',
+    display_name: 'Multi-Sport',
+    icon: '🏟️',
+    color: '#FF6B6B',
+    description: 'Comprehensive sports complex with multiple facilities',
+    number_of_services: 2,
+    is_active: true,
+    created_at: null,
+    updated_at: null,
+    pricing: { basic: 2000, standard: 3000, premium: 4000 }
+  }
 ];
 
 export const TRAINER_FEES = {

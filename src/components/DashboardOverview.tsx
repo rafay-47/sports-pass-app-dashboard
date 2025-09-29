@@ -21,9 +21,45 @@ interface DashboardOverviewProps {
   financialData: FinancialData;
   events: ClubEvent[];
   notifications: NotificationItem[];
+  isLoading?: boolean;
 }
 
-export default function DashboardOverview({ club, financialData, events, notifications }: DashboardOverviewProps) {
+export default function DashboardOverview({ club, financialData, events, notifications, isLoading = false }: DashboardOverviewProps) {
+  // Show loading screen while fetching club data
+  if (isLoading) {
+    return (
+      <div className="p-6">
+        <div className="max-w-2xl mx-auto text-center space-y-6">
+          <div className="w-16 h-16 mx-auto bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Loading Your Dashboard</h2>
+            <p className="text-muted-foreground">
+              Fetching your club data...
+            </p>
+          </div>
+          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20">
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="animate-pulse flex space-x-4">
+                    <div className="rounded-full bg-primary/20 h-4 w-4"></div>
+                    <div className="rounded-full bg-primary/20 h-4 w-4"></div>
+                    <div className="rounded-full bg-primary/20 h-4 w-4"></div>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  This may take a few seconds...
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   if (!club) {
     return (
       <div className="p-6">
@@ -100,8 +136,8 @@ export default function DashboardOverview({ club, financialData, events, notific
             <div className="space-y-2">
               <div className="flex items-center gap-3">
                 <h2 className="text-xl font-semibold text-foreground">{club.name}</h2>
-                <Badge className={`${club.verificationStatus === 'verified' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                  {club.verificationStatus === 'verified' ? 'Verified' : 'Pending Verification'}
+                <Badge className={`${club.verification_status === 'verified' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                  {club.verification_status === 'verified' ? 'Verified' : 'Pending Verification'}
                 </Badge>
               </div>
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -115,7 +151,7 @@ export default function DashboardOverview({ club, financialData, events, notific
                 </div>
                 <div className="flex items-center gap-1">
                   <Star className="w-4 h-4" />
-                  <span>{club.type} club</span>
+                  <span>{club.sport.name} club</span>
                 </div>
               </div>
             </div>

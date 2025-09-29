@@ -157,7 +157,7 @@ export default function SettingsScreen({
 
                 <div className="bg-muted/50 p-4 rounded-lg">
                   <div className="text-sm text-muted-foreground space-y-1">
-                    <div><strong>Member since:</strong> {new Date(clubOwner.joinDate).toLocaleDateString()}</div>
+                    <div><strong>Member since:</strong> {new Date(clubOwner.join_date).toLocaleDateString()}</div>
                     {club && (
                       <div><strong>Club:</strong> {club.name}</div>
                     )}

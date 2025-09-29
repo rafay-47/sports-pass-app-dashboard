@@ -179,7 +179,7 @@ export default function MembershipDetailsScreen({ membership, user, onBack }: Me
   const [selectedTrainee, setSelectedTrainee] = useState<TraineeInfo | null>(null);
   
   const sport = SPORTS.find(s => s.id === membership.sportId);
-  const isTrainer = user.isTrainer && user.trainerProfile?.sport === membership.sportId;
+  const isTrainer = user.is_trainer && user.trainer_profile?.sport === membership.sportId;
   
   // Mock data - in real app this would come from API
   const serviceHistory = mockServiceHistory;

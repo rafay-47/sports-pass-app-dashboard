@@ -30,7 +30,7 @@ export default function UserProfileScreen({
   const activeMemberships = memberships.filter(m => m.status === 'active');
   const totalServices = memberships.reduce((total, m) => {
     const sport = SPORTS.find(s => s.id === m.sportId);
-    return total + (sport?.services.length || 0);
+    return total + (sport?.number_of_services || 0);
   }, 0);
 
   return (
@@ -79,7 +79,7 @@ export default function UserProfileScreen({
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
                     <h2 className="text-white text-2xl font-bold">{user.name}</h2>
-                    {user.isTrainer && (
+                    {user.is_trainer && (
                       <Badge className="bg-[#FFB948]/20 text-[#FFB948] border-[#FFB948]/30">
                         <Award className="w-3 h-3 mr-1" />
                         Trainer
@@ -98,7 +98,7 @@ export default function UserProfileScreen({
                     </div>
                     <div className="flex items-center gap-2 text-white/70">
                       <Calendar className="w-4 h-4" />
-                      <span className="text-sm">Member since {user.joinDate ? new Date(user.joinDate).toLocaleDateString() : 'N/A'}</span>
+                      <span className="text-sm">Member since {user.join_date ? new Date(user.join_date).toLocaleDateString() : 'N/A'}</span>
                     </div>
                   </div>
                 </div>
@@ -168,7 +168,7 @@ export default function UserProfileScreen({
           </div>
 
           {/* Trainer Profile */}
-          {user.isTrainer && user.trainerProfile && (
+          {user.is_trainer && user.trainer_profile && (
             <Card className="bg-white/10 border-white/20">
               <CardHeader>
                 <CardTitle className="text-white flex items-center gap-2">
@@ -182,7 +182,7 @@ export default function UserProfileScreen({
                     <div className="text-white/80 text-sm font-medium mb-2">Sport</div>
                     <div className="flex flex-wrap gap-2">
                       {(() => {
-                        const sport = SPORTS.find(s => s.id === user.trainerProfile?.sport);
+                        const sport = SPORTS.find(s => s.id === user.trainer_profile?.sport);
                         return sport ? (
                           <Badge className="bg-[#A148FF]/20 text-[#A148FF] border-[#A148FF]/30">
                             {sport.icon} {sport.name}
@@ -195,27 +195,27 @@ export default function UserProfileScreen({
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <div className="text-white/80 text-sm font-medium">Experience</div>
-                      <div className="text-white">{user.trainerProfile.experience} years</div>
+                      <div className="text-white">{user.trainer_profile.experience} years</div>
                     </div>
                     <div>
                       <div className="text-white/80 text-sm font-medium">Membership Tier</div>
-                      <div className="text-[#FFB948] font-bold capitalize">{user.trainerProfile.membershipTier}</div>
+                      <div className="text-[#FFB948] font-bold capitalize">{user.trainer_profile.membership_tier}</div>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="text-white text-sm">{user.trainerProfile.rating.toFixed(1)}</span>
+                      <span className="text-white text-sm">{user.trainer_profile.rating.toFixed(1)}</span>
                     </div>
                     <div className="text-white/60 text-sm">
-                      {user.trainerProfile.totalSessions} sessions completed
+                      {user.trainer_profile.total_sessions} sessions completed
                     </div>
-                    <Badge className={user.trainerProfile.verified ? 
+                    <Badge className={user.trainer_profile.verified ? 
                       "bg-green-500/20 text-green-300 border-green-500/30" :
                       "bg-yellow-500/20 text-yellow-300 border-yellow-500/30"
                     }>
-                      {user.trainerProfile.verified ? 'Verified' : 'Under Review'}
+                      {user.trainer_profile.verified ? 'Verified' : 'Under Review'}
                     </Badge>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ export default function UserProfileScreen({
 
           {/* Actions */}
           <div className="space-y-4">
-            {!user.isTrainer && (
+            {!user.is_trainer && (
               <Button
                 onClick={onBecomeTrainer}
                 className="w-full bg-gradient-to-r from-[#A148FF] to-[#FFB948] hover:from-[#A148FF]/90 hover:to-[#FFB948]/90 text-white font-bold py-3"

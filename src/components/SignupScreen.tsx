@@ -8,7 +8,7 @@ import { ArrowLeft, Eye, EyeOff, Mail, User, Phone, Lock } from 'lucide-react';
 import { SPORTS } from '../constants';
 
 interface SignupScreenProps {
-  onSignup: (userData: { name: string; email: string; phone: string; password: string }) => void;
+  onSignup: (userData: { name: string; email: string; phone: string; password: string; user_role: string }) => void;
   onLogin: (userData: { email: string; password: string }) => void;
   onBack: () => void;
   isLoading: boolean;
@@ -40,7 +40,8 @@ export default function SignupScreen({ onSignup, onLogin, onBack, isLoading, pen
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        password: formData.password
+        password: formData.password,
+        user_role: 'owner'
       });
     } else {
       onLogin({

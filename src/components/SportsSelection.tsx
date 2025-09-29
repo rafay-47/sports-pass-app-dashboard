@@ -74,14 +74,14 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
                   <span className="text-3xl font-bold">${pricing.basic}</span>
                   <span className="text-muted-foreground">/month</span>
                 </div>
-                <ul className="space-y-2 mb-6">
+                {/* <ul className="space-y-2 mb-6">
                   {sport.services.slice(0, 2).map((service, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <Check className="w-4 h-4 text-green-500" />
                       <span className="text-sm">{service}</span>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
                 <Button 
                   onClick={() => handlePurchase('basic')}
                   className="w-full"
@@ -107,12 +107,12 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <ul className="space-y-2 mb-6">
-                  {sport.services.slice(0, 3).map((service, index) => (
+                  {/* {sport.services.slice(0, 3).map((service, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <Check className="w-4 h-4 text-green-500" />
                       <span className="text-sm">{service}</span>
                     </li>
-                  ))}
+                  ))} */}
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-green-500" />
                     <span className="text-sm">Priority Booking</span>
@@ -143,12 +143,12 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
                     <span className="text-muted-foreground">/month</span>
                   </div>
                   <ul className="space-y-2 mb-6">
-                    {sport.services.map((service, index) => (
+                    {/* {sport.services.map((service, index) => (
                       <li key={index} className="flex items-center gap-2">
                         <Check className="w-4 h-4 text-green-500" />
                         <span className="text-sm">{service}</span>
                       </li>
-                    ))}
+                    ))} */}
                     <li className="flex items-center gap-2">
                       <Check className="w-4 h-4 text-green-500" />
                       <span className="text-sm">VIP Access</span>
@@ -211,9 +211,9 @@ export default function SportsSelection({ onPurchaseMembership, onBack, existing
                     ${cardPricing.basic}/month
                   </div>
                   <div className="space-y-1 text-xs text-muted-foreground">
-                    {sport.services.slice(0, 2).map((service, index) => (
+                    {/* {sport.services.slice(0, 2).map((service, index) => (
                       <div key={index}>• {service}</div>
-                    ))}
+                    ))} */}
                     <div>+ more services</div>
                   </div>
                 </CardContent>
