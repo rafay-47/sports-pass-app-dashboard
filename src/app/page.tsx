@@ -30,6 +30,7 @@ import { useClubOperations } from '../hooks';
 import { type ClubOwner, type Club, type FinancialData, type ClubEvent, type NotificationItem, type CheckInAnalytics, type ServiceCommission } from '../types';
 import { generateMockAnalytics } from '../utils/helpers';
 import { eventApi } from '../services';
+import type { CreateEventRequest } from '../services/eventApi';
 
 function AppContent() {
   const { user: clubOwner, isLoading, isHydrating, hasStoredAuthData, login, signup, logout } = useAuth();
@@ -350,7 +351,7 @@ function AppContent() {
     }
   };
 
-    const handleEventSave = async (eventData: any, isDraft?: boolean) => {
+  const handleEventSave = async (eventData: Partial<ClubEvent>, isDraft?: boolean) => {
     if (!clubOwner) return;
 
     try {
@@ -365,7 +366,7 @@ function AppContent() {
       const apiEventData = eventApi.convertComponentEventToApiEvent(eventDataWithOrganizer);
       
       console.log('Creating event with data:', apiEventData);
-      const createdEvent = await eventApi.createEvent(apiEventData as any);
+      const createdEvent = await eventApi.createEvent(apiEventData as CreateEventRequest);
       
       // Convert API response back to component format
       const componentEvent = eventApi.convertApiEventToComponentEvent(createdEvent);

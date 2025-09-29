@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -20,7 +20,7 @@ import {
   AlertCircle,
   RefreshCw
 } from 'lucide-react';
-import { type ClubOwner, type Club, type ClubFormData } from '../types';
+import { type ClubOwner, type Club, type ClubFormData, type Facility, type Amenity } from '../types';
 import { DAYS } from '../constants';
 import { useSports, useFacilities, useAmenities, useClubOperations } from '../hooks';
 import LocationPicker from './GoogleMapPicker';
@@ -55,7 +55,7 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
     const { createClub, updateClub, getUserClubs, loading: clubOperationLoading, error: clubOperationError } = useClubOperations();
 
   // Function to fetch club data from API
-  const fetchClubData = async () => {
+  const fetchClubData = useCallback(async () => {
     if (!clubOwner?.id) return;
 
     try {
@@ -75,10 +75,10 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
           city: fetchedClub.city || '',
           latitude: fetchedClub.latitude || '0',
           longitude: fetchedClub.longitude || '0',
-          facilities: fetchedClub.facilities?.map((f: any) => f.id) || [],
-          amenities: fetchedClub.amenities?.map((a: any) => a.id) || [],
+          facilities: fetchedClub.facilities?.map((f: Facility) => f.id) || [],
+          amenities: fetchedClub.amenities?.map((a: Amenity) => a.id) || [],
           timings: Object.fromEntries(
-            Object.entries(fetchedClub.timings || {}).map(([day, timing]: [string, any]) => [
+            Object.entries(fetchedClub.timings || {}).map(([day, timing]: [string, { open: string; close: string }]) => [
               day,
               {
                 open: timing.open || '06:00',
@@ -103,7 +103,7 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
       console.error('Error fetching club data:', error);
       toast.error('Failed to fetch latest club data');
     }
-  };
+  }, [clubOwner?.id, getUserClubs, onSave]);
 
   useEffect(() => {
     if (club) {
@@ -116,10 +116,10 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
         city: club.city || '',
         latitude: club.latitude || '0',
         longitude: club.longitude || '0',
-        facilities: club.facilities?.map((f: any) => f.id) || [],
-        amenities: club.amenities?.map((a: any) => a.id) || [],
+        facilities: club.facilities?.map((f: Facility) => f.id) || [],
+        amenities: club.amenities?.map((a: Amenity) => a.id) || [],
         timings: Object.fromEntries(
-          Object.entries(club.timings || {}).map(([day, timing]: [string, any]) => [
+          Object.entries(club.timings || {}).map(([day, timing]: [string, { open: string; close: string }]) => [
             day,
             {
               open: timing.open || '06:00',
@@ -152,7 +152,7 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
       //console.log('No club data found, fetching from API...');
       fetchClubData();
     }
-  }, [clubOwner?.id, club]);
+  }, [clubOwner?.id, club, clubOperationLoading, fetchClubData]);
 
   const handleInputChange = (field: string, value: string | number | boolean | object) => {
     if (field === 'coordinates') {
@@ -295,7 +295,7 @@ export default function ClubProfileScreen({ clubOwner, club, onSave, isLoading }
         status: result.status || 'active',
         verification_status: result.verification_status || 'pending',
         timings: Object.fromEntries(
-          Object.entries(result.timings || {}).map(([day, timing]: [string, any]) => [
+          Object.entries(result.timings || {}).map(([day, timing]: [string, { open: string; close: string }]) => [
             day,
             {
               open: timing.open || '06:00',

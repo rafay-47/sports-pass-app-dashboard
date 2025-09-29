@@ -67,16 +67,17 @@ class ClubApiService extends BaseApiService {
    */
   async getUserClubs(): Promise<Club[]> {
     try {
-      const data = await this.get<any>('/clubs/my-clubs');
+      const data = await this.get<unknown>('/clubs/my-clubs');
+      const response = data as { clubs?: Club[]; data?: Club[]; } | Club[];
       //console.log('ClubApi - Raw response from /clubs/my-clubs:', data);
       
       // Handle different response formats
-      if (Array.isArray(data)) {
-        return data;
-      } else if (data && data.clubs && Array.isArray(data.clubs)) {
-        return data.clubs;
-      } else if (data && data.data && Array.isArray(data.data)) {
-        return data.data;
+      if (Array.isArray(response)) {
+        return response;
+      } else if (response && response.clubs && Array.isArray(response.clubs)) {
+        return response.clubs;
+      } else if (response && response.data && Array.isArray(response.data)) {
+        return response.data;
       } else {
         console.warn('ClubApi - Unexpected response format:', data);
         return [];

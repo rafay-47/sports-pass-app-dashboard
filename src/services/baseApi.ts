@@ -74,7 +74,7 @@ export class BaseApiService {
   /**
    * Generic POST request
    */
-  protected async post<T>(endpoint: string, data?: any): Promise<T> {
+  protected async post<T>(endpoint: string, data?: unknown): Promise<T> {
     try {
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method: 'POST',
@@ -108,7 +108,7 @@ export class BaseApiService {
   /**
    * Generic PUT request
    */
-  protected async put<T>(endpoint: string, data?: any): Promise<T> {
+  protected async put<T>(endpoint: string, data?: unknown): Promise<T> {
     try {
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method: 'PUT',

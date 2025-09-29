@@ -1,5 +1,5 @@
 import { BaseApiService } from './baseApi';
-import type { ClubEvent } from '../types';
+import type { ClubEvent, Sport, Club, ClubOwner } from '../types';
 
 export interface CreateEventRequest {
   title: string;
@@ -53,9 +53,9 @@ export interface ApiEventResponse {
   location_type: 'club' | 'custom';
   organizer_id: string;
   formatted_location: string;
-  sport: any; // Sport object
-  club: any | null; // Club object
-  organizer: any; // ClubOwner object
+  sport: Sport; // Sport object
+  club: Club | null; // Club object
+  organizer: ClubOwner; // ClubOwner object
   status: 'draft' | 'published' | 'ongoing' | 'completed' | 'cancelled' | 'postponed';
 }
 
