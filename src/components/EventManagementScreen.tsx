@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -56,6 +57,11 @@ const EVENT_TYPES = [
   { id: 'social', label: 'Social Event', icon: Users, color: 'text-green-600' }
 ];
 
+type Notification = {
+  title: string;
+  message: string;
+  type: 'success' | 'error' | 'info' | 'warning';
+};
 
 interface EventManagementScreenProps {
   club: Club | null;
@@ -66,7 +72,7 @@ interface EventManagementScreenProps {
   onEventPostpone: (id: string, updates: Partial<ClubEvent>) => void;
   onEventDelete: (id: string) => void;
   onEventAnnouncement: (id: string, message: string) => void;
-  addNotification: (notification: any) => void;
+  addNotification: (notification: Notification) => void;
 }
 
 export default function EventManagementScreen({ 
@@ -242,11 +248,6 @@ export default function EventManagementScreen({
     }
   };
 
-  const handleViewParticipant = (participant: EventParticipant) => {
-    setSelectedParticipant(participant);
-    setShowParticipantDialog(true);
-  };
-
   const handlePostEvent = async (eventId: string) => {
     setSubmitLoading(true);
     try {
@@ -268,7 +269,7 @@ export default function EventManagementScreen({
     
     try {
       // Set location and location_type based on hosting club selection
-      let finalEventData = { ...eventForm };
+      const finalEventData = { ...eventForm };
       
       if (eventForm.hostingClub && eventForm.hostingClub !== 'other') {
         // Club-based location
@@ -408,11 +409,6 @@ export default function EventManagementScreen({
           time: eventTime,
           status: 'postponed' as const
         };
-        
-        // Update the events array (this will trigger a re-render)
-        const updatedEvents = events.map(event => 
-          event.id === selectedEvent.id ? updatedEvent : event
-        );
         
         // Since we already called the postpone API, just update local state
         onEventPostpone(selectedEvent.id, {
@@ -755,13 +751,13 @@ export default function EventManagementScreen({
                                 Delete
                               </Button>
                             </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Delete Event</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Are you sure you want to delete "{event.title}"? This action cannot be undone.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete Event</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Are you sure you want to delete &quot;{event.title}&quot;? This action cannot be undone.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
                               <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction 
@@ -885,9 +881,11 @@ export default function EventManagementScreen({
                       sports.map((sport) => (
                         <SelectItem key={sport.id} value={sport.id}>
                           <div className="flex items-center gap-2">
-                            <img
+                            <Image
                               src={sport.icon}
                               alt={sport.name}
+                              width={16}
+                              height={16}
                               className="w-4 h-4 object-contain"
                               onError={(e) => {
                                 // Fallback to emoji if image fails
@@ -1470,19 +1468,16 @@ export default function EventManagementScreen({
                                 variant="outline"
                                 onClick={() => {
                                   // Create a participant-like object for the dialog
-                                  const participantData = {
+                                  const participantData: EventParticipant = {
                                     id: registration.user.id,
                                     name: registration.user.name,
-                                    memberId: registration.user.id,
                                     phone: registration.user.phone,
+                                    memberId: registration.user.id,
                                     membershipTier: registration.user.user_role,
                                     emergencyContact: { phone: 'N/A' },
-                                    tshirtSize: null,
-                                    medicalConditions: null,
-                                    dietaryRestrictions: null,
                                     joinedAt: registration.registration_date
                                   };
-                                  setSelectedParticipant(participantData as any);
+                                  setSelectedParticipant(participantData);
                                   setShowParticipantDialog(true);
                                 }}
                               >
