@@ -78,6 +78,17 @@ export default function ServicesList({ sport, membership, onServiceClick }: Serv
     return name.includes('trainer') || name.includes('coach');
   };
 
+  // Define available services
+  const services = [
+    'Personal Trainer',
+    'Diet Consultation',
+    'Equipment Access',
+    'Court Booking',
+    'Tournament Entry',
+    'Group Sessions',
+    'Equipment Rental'
+  ];
+
   return (
     <div>
       {/* Services Header */}
@@ -108,7 +119,7 @@ export default function ServicesList({ sport, membership, onServiceClick }: Serv
 
       {/* Services Grid */}
       <div className="space-y-4">
-        {sport.services.map((service, index) => {
+        {services.map((service, index) => {
           const isTrainer = isTrainerService(service.toString());
           const basePrice = getServicePrice(service.toString());
           const discountedPrice = Math.floor(basePrice * (1 - tierBenefit.discount / 100));

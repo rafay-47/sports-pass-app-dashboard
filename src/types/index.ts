@@ -282,6 +282,11 @@ export type Sport = {
   is_active: boolean | null;
   created_at: string | null;
   updated_at: string | null;
+  pricing?: {
+    basic?: number;
+    standard?: number;
+    premium?: number;
+  };
 };
 
 export type User = {

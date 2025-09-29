@@ -66,8 +66,7 @@ export default function MembershipManagement({
   };
 
   const getTierPrice = () => {
-    const tier = membership.tier as keyof typeof sport.pricing;
-    return 0;
+    return membership.price || 0;
   };
 
   const formatDate = (dateString: string) => {
