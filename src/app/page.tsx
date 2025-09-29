@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   LayoutDashboard, 
   Building2, 
@@ -40,6 +40,7 @@ function AppContent() {
   // keep sidebar and other states
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [clubsFetched, setClubsFetched] = useState(false);
   const [financialData, setFinancialData] = useState<FinancialData>({
     totalRevenue: 0,
     monthlyRevenue: 0,
@@ -121,12 +122,12 @@ function AppContent() {
 
   // Fetch club data from API when clubOwner is available
   useEffect(() => {
-    if (clubOwner?.id && !club && !clubApiLoading) {
+    if (clubOwner?.id && !club && !clubApiLoading && !clubsFetched) {
       console.log('🔄 AppContent - Triggering club data fetch for owner:', clubOwner.id);
       console.log('🔄 AppContent - Current state: club=', !!club, 'clubApiLoading=', clubApiLoading);
       fetchClubData();
     }
-  }, [clubOwner?.id, club, clubApiLoading]);
+  }, [clubOwner?.id, club, clubApiLoading, clubsFetched]);
 
   const addNotification = (notification: Omit<NotificationItem, 'id' | 'timestamp' | 'read'>) => {
     const newNotification: NotificationItem = {
@@ -162,46 +163,14 @@ function AppContent() {
       commissions: []
     });
     setEvents([]);
+    setClubsFetched(false); // Reset fetch state on logout
     setActiveTab('dashboard');
 
     toast.success('Logged out successfully');
   };
 
 
-  // Function to fetch club data from API
-  const fetchClubData = async () => {
-    if (!clubOwner?.id) return;
-
-    try {
-      console.log('🔄 AppContent - Starting to fetch club data for owner:', clubOwner.id);
-      console.log('🔄 AppContent - clubApiLoading state:', clubApiLoading);
-      
-      const clubs = await getUserClubs();
-      
-      console.log('✅ AppContent - Club data fetch completed, clubs:', clubs?.length || 0);
-
-      if (clubs && clubs.length > 0) {
-        const fetchedClub = clubs[0]; // Get the first club (assuming one club per owner)
-        console.log('✅ AppContent - Setting club data:', fetchedClub.name);
-
-        // Update the club state with fetched data
-        setClub(fetchedClub);
-
-        // Fetch events for this organizer
-        await fetchEvents();
-
-        toast.success('Club data loaded');
-      } else {
-        console.log('⚠️ AppContent - No clubs found for owner');
-        setClub(null);
-      }
-    } catch (error) {
-      console.error('❌ AppContent - Error fetching club data:', error);
-      toast.error('Failed to fetch club data');
-    }
-  };
-
-  const fetchEvents = async () => {
+  const fetchEvents = useCallback(async () => {
     console.log('🚀 fetchEvents called!');
     console.log('👤 Current clubOwner:', clubOwner);
     console.log('🆔 clubOwner ID:', clubOwner?.id);
@@ -258,7 +227,42 @@ function AppContent() {
     } finally {
       setEventsLoading(false);
     }
-  };
+  }, [clubOwner, eventApi, setEvents, setEventsLoading, toast]);
+
+  // Function to fetch club data from API
+  const fetchClubData = useCallback(async () => {
+    if (!clubOwner?.id) return;
+
+    try {
+      console.log('🔄 AppContent - Starting to fetch club data for owner:', clubOwner.id);
+      console.log('🔄 AppContent - clubApiLoading state:', clubApiLoading);
+      
+      const clubs = await getUserClubs();
+      
+      console.log('✅ AppContent - Club data fetch completed, clubs:', clubs?.length || 0);
+
+      if (clubs && clubs.length > 0) {
+        const fetchedClub = clubs[0]; // Get the first club (assuming one club per owner)
+        console.log('✅ AppContent - Setting club data:', fetchedClub.name);
+
+        // Update the club state with fetched data
+        setClub(fetchedClub);
+
+        // Fetch events for this organizer
+        await fetchEvents();
+
+        toast.success('Club data loaded');
+      } else {
+        console.log('⚠️ AppContent - No clubs found for owner');
+        setClub(null);
+      }
+    } catch (error) {
+      console.error('❌ AppContent - Error fetching club data:', error);
+      toast.error('Failed to fetch club data');
+    } finally {
+      setClubsFetched(true);
+    }
+  }, [clubOwner, getUserClubs, fetchEvents, toast, setClub, setClubsFetched]);
 
   const handleClubSave = async (clubData: Partial<Club>) => {
     if (clubOwner) {
@@ -326,6 +330,7 @@ function AppContent() {
 
       // Fetch updated data from API to ensure we have the latest
       if (clubOwner?.id) {
+        setClubsFetched(false); // Allow refetching after save
         await fetchClubData();
       }
 
